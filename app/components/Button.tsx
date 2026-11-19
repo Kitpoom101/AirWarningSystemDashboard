@@ -12,7 +12,7 @@ export default function Button({
   href,
   ...props
 }: ButtonProps) {
-  const styles = `flex h-full w-64 text-3xl items-center justify-center px-3 cursor-pointer hover:bg-[radial-gradient(50%_50%_at_50%_50%,rgba(203,202,202,0.5)_30%,rgba(101,100,100,0.5)_99.99%)] ${className}`;
+  const styles = `flex h-full flex-1 max-w-64 text-[length:min(3vh,5vw)] items-center justify-center px-3 cursor-pointer hover:bg-[radial-gradient(50%_50%_at_50%_50%,rgba(203,202,202,0.5)_30%,rgba(101,100,100,0.5)_99.99%)] ${className}`;
 
   if (href) {
     return (
