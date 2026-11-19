@@ -1,10 +1,12 @@
-import type { RankedLocation } from "../data/rankings";
+import type { RankedZone } from "../data/rankings";
 import ForecastIcon from "./ForecastIcon";
 
 type RankingListProps = {
-  title: string;
-  titleClassName: string;
-  items: RankedLocation[];
+  title?: string;
+  titleClassName?: string;
+  items: RankedZone[];
+  /** false when the list is already grouped under one location: cards show the zone only. */
+  showLocation?: boolean;
 };
 
 // Location | Score | Forecast — shared by the header row and every card.
@@ -12,13 +14,18 @@ type RankingListProps = {
 const columns =
   "grid grid-cols-[minmax(0,1fr)_2.75rem_3.5rem] items-center gap-1 px-3 lg:grid-cols-[minmax(0,1fr)_4rem_4rem] lg:gap-2";
 
-export default function RankingList({ title, titleClassName, items }: RankingListProps) {
+export default function RankingList({
+  title,
+  titleClassName = "",
+  items,
+  showLocation = true,
+}: RankingListProps) {
   return (
     <div className="flex flex-col">
-      <h3 className={`mb-2 text-lg font-bold ${titleClassName}`}>{title}</h3>
+      {title && <h3 className={`mb-2 text-lg font-bold ${titleClassName}`}>{title}</h3>}
 
       <div className={`${columns} mb-1 text-xs font-normal text-[#6B6B6B]`}>
-        <span>Location</span>
+        <span>{showLocation ? "Location" : "Zone"}</span>
         <span className="text-center">Score</span>
         <span className="text-center">Forecast</span>
       </div>
@@ -32,8 +39,14 @@ export default function RankingList({ title, titleClassName, items }: RankingLis
             <div className="flex min-w-0 items-center gap-3">
               <span className="w-5 shrink-0 text-xs font-bold tabular-nums">{String(item.rank).padStart(2, "0")}</span>
               <div className="min-w-0 leading-tight">
-                <p className="truncate text-sm font-normal">{item.name}</p>
-                <p className="truncate text-xs font-normal">{item.zone}</p>
+                {showLocation ? (
+                  <>
+                    <p className="truncate text-sm font-normal">{item.name}</p>
+                    <p className="truncate text-xs font-normal">{item.zone}</p>
+                  </>
+                ) : (
+                  <p className="truncate text-sm font-normal">{item.zone}</p>
+                )}
               </div>
             </div>
             <span className="text-center text-base font-bold tabular-nums">{item.score}</span>

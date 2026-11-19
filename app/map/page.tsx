@@ -1,10 +1,15 @@
+import { Suspense } from "react";
+import MapView, { MapViewFromParams } from "../components/MapView";
+import { getLocationSummaries, getMapPins } from "../data/rankings";
+
 export default function MapPage() {
+  const pins = getMapPins();
+  const summaries = getLocationSummaries();
+
+  // ?site= is only known in the browser; the prerendered fallback shows the default pin.
   return (
-    <section className="flex flex-1 flex-col gap-4">
-      <h2 className="font-sedan text-3xl">Map</h2>
-      <div className="glass flex-1 p-4">
-        Map content goes here
-      </div>
-    </section>
+    <Suspense fallback={<MapView pins={pins} summaries={summaries} />}>
+      <MapViewFromParams pins={pins} summaries={summaries} />
+    </Suspense>
   );
 }

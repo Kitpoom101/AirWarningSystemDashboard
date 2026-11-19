@@ -1,12 +1,9 @@
 import Bar from "./components/Bar";
+import CampusMap from "./components/CampusMap";
 import RankingList from "./components/RankingList";
-import { getRankings } from "./data/rankings";
+import { getMapPins, getRankings } from "./data/rankings";
 
 const SHOWN = 4;
-
-// OpenStreetMap view around Chulalongkorn University / Siam.
-const MAP_SRC =
-  "https://www.openstreetmap.org/export/embed.html?bbox=100.522%2C13.733%2C100.541%2C13.747&layer=mapnik";
 
 export default function HomePage() {
   const rankings = getRankings();
@@ -29,12 +26,8 @@ export default function HomePage() {
       {/* Map */}
       <section className="flex min-h-80 flex-1 flex-col border-[#9A9A9A] md:border-l">
         <Bar className="px-5 py-1 text-lg font-bold">Map</Bar>
-        <iframe
-          title="Map of monitored locations"
-          src={MAP_SRC}
-          loading="lazy"
-          className="w-full flex-1 border-0"
-        />
+        {/* Pins link to the Map page with that site selected */}
+        <CampusMap pins={getMapPins()} linkTo="/map" className="min-h-80 flex-1" />
       </section>
     </div>
   );

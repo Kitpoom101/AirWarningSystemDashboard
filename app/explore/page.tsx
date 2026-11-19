@@ -1,10 +1,14 @@
+import { Suspense } from "react";
+import ExploreView, { ExploreViewFromParams } from "../components/ExploreView";
+import { getLocationRankings } from "../data/rankings";
+
 export default function ExplorePage() {
+  // Data is loaded here (server); ExploreView handles the zone selection (client).
+  // ?location=&zone= is only known in the browser; the prerendered fallback shows the default zone.
+  const locations = getLocationRankings();
   return (
-    <section className="flex flex-1 flex-col gap-4">
-      <h2 className="font-sedan text-3xl">Explore</h2>
-      <div className="glass flex-1 p-4">
-        Explore content goes here
-      </div>
-    </section>
+    <Suspense fallback={<ExploreView locations={locations} />}>
+      <ExploreViewFromParams locations={locations} />
+    </Suspense>
   );
 }
