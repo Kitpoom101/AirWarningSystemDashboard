@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Open_Sans, Sedan_SC } from "next/font/google";
 import "./globals.css";
-import AutoRefresh from "./components/AutoRefresh";
 import Bar from "./components/Bar";
 import Button from "./components/Button";
 
@@ -41,7 +40,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${geistMono.variable} ${openSans.variable} ${sedanSC.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <AutoRefresh seconds={30} />
         <div className="relative flex min-h-screen flex-col bg-cover bg-center bg-no-repeat bg-[url('/bg.png')]">
           <div className="glass-bg absolute inset-0" />
           <div className="bg-texture absolute inset-0" />
